@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+	<style type="text/css">
+		.user_backgroud{
+			width: 100%;
+			height: 280px;
+			background-image: url(images/user01.jpg);
+			background-size: cover; 
+			-moz-background-size: cover; 
+			margin-bottom: 22px;
+		}
+		.user_photo{
+			width: 110px;
+			height: 110px;	
+			border-radius: 150px;
+		}
+		.photo_fox{
+			padding: 45px 0 0 0;
+			text-align: center;
+		}
+		.username{
+			color: white;
+			text-align: center;
+			margin-top: 10px;
+		}
+		
+		
+		/*退出按钮*/
+		.btn_quit{
+			width: 80%;
+			height: 45px;
+			font-size: 20px;
+			margin:20% 0 0 10%;
+			
+		}
+	</style>
+
+	<body>
+		<div class="mui-content">
+			
+			<div class="user_backgroud">
+				<div class="photo_fox">
+					<img src="images/a02.jpg" class="user_photo"/>
+					<h3 class="username">林小妖</h3>
+					<h6>VIP用户</h3>
+				</div>
+			</div>
+			
+			
+			
+			
+			<!--列表-->
+			<ul class="mui-table-view">
+			    <li class="mui-table-view-cell">
+			    	
+			        <a class="mui-navigate-right">
+			        	<span class="mui-icon mui-icon-weixin"></span>
+			        	签到
+			        </a>
+			    </li>
+			    <li class="mui-table-view-cell">
+			    	<span class="mui-icon mui-icon-weixin"></span>
+			    	我的消息 
+		        	<span class="mui-badge mui-badge-danger ">11</span>
+		   	   </li>
+			    <li class="mui-table-view-cell">
+			        <a class="mui-navigate-right">我的收藏</a>
+			    </li>
+			    <li class="mui-table-view-cell">
+			        <a class="mui-navigate-right">我的订阅</a>
+			    </li>
+			    <li class="mui-table-view-cell">
+			        <a class="mui-navigate-right">浏览记录</a>
+			    </li>
+			    <li class="mui-table-view-cell">
+			        <a class="mui-navigate-right">清除缓存</a>
+			    </li>
+			    <li class="mui-table-view-cell">
+			        <a class="mui-navigate-right">检查更新</a>
+			    </li>
+			</ul>
+			<!--退出按钮-->
+			<button id="exit" type="button" class="mui-btn mui-btn-danger btn_quit" >退出登录</button>
+		</div>
+		
+		
+		
+	
+	
+	
+	
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			//退出操作******************
+		document.getElementById('exit').addEventListener('tap', function() {
+			if (mui.os.ios) {
+				app.setState({});
+				mui.openWindow({
+					url: 'login.html',
+					id: 'login',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+				return;
+			}
+			var btnArray = [{
+				title: "注销当前账号"
+			}, {
+				title: "直接关闭应用"
+			}];
+			plus.nativeUI.actionSheet({
+				cancel: "取消",
+				buttons: btnArray
+			}, function(event) {
+				var index = event.index;
+				switch (index) {
+					case 0:
+						//注销账号
+						app.setState({});
+						/*
+						 * 注意：
+						 * 1、因本示例应用启动页就是登录页面，因此注册成功后，直接显示登录页即可；
+						 * 2、如果真实案例中，启动页不是登录页，则需修改，使用mui.openWindow打开真实的登录页面
+						 */
+						plus.webview.getLaunchWebview().show("pop-in");
+						//若启动页不是登录页，则需通过如下方式打开登录页
+//						mui.openWindow({
+//							url: 'login.html',
+//							id: 'login',
+//							show: {
+//								aniShow: 'pop-in'
+//							}
+//						});
+						break;
+					case 2:
+						plus.runtime.quit();
+						break;
+				}
+			});
+		}, false);
+		 //************************
+		</script>
+	</body>
+
+</html>
